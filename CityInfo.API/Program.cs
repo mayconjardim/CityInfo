@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.StaticFiles;
+ using Microsoft.AspNetCore.StaticFiles;
 
 namespace CityInfo.API
 {
@@ -13,7 +13,12 @@ namespace CityInfo.API
             builder.Services.AddControllers(options =>
             {
                 options.ReturnHttpNotAcceptable = true;
-            });
+
+            }).AddNewtonsoftJson()
+                .AddXmlDataContractSerializerFormatters();
+                
+                
+                ;
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
