@@ -42,7 +42,7 @@
                         },
                           new PointOfInterestDto()
                         {
-                            Id= 6,
+                            Id= 7,
                             Name = "Trilha do Elefante",
                             Description = "Uma otima caminhada pra quem gosta de exercicios!"
                         }
