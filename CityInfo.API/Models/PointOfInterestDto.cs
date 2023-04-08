@@ -9,9 +9,6 @@
 
         public string? Description { get; set; }
 
-        public List<PointOfInterestDto> PointsOfInterests { get; set;} = new List<PointOfInterestDto>();
-
-
 
     }
 }

@@ -11,7 +11,7 @@
 
         public int NumberOfPointsOfInterest
         {
-            get
+            get  
             {
                 return PointsOfInterest.Count;
             }
