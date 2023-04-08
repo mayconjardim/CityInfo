@@ -11,7 +11,7 @@ namespace CityInfo.API.Controllers
 
         [HttpGet]
         public ActionResult<List<PointOfInterestDto>> GetPointsOfInterest(int cityId) {
-
+            
             var city = CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == cityId);
 
             if (city == null)
