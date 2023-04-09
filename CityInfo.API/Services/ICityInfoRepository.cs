@@ -21,6 +21,7 @@ namespace CityInfo.API.Services
 
         Task<bool> SaveChangesAsync();
 
+        Task<bool> CityNameMatchesCityId(string? name, int cityId);
         void DeletePointOfInterests(PointOfInterest pointOfInterest);
     } 
 
