@@ -43,6 +43,7 @@ namespace CityInfo.API
             builder.Services.AddDbContext<CityInfoContext>(DbContextOptions =>
             DbContextOptions.UseSqlite(builder.Configuration["ConnectionStrings:CityInfoDbConnectionString"]));
 
+            builder.Services.AddScoped<ICityInfoRepository, CityInfoRepository>();
 
             var app = builder.Build();
 
