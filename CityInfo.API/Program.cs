@@ -41,7 +41,7 @@ namespace CityInfo.API
             builder.Services.AddSingleton<CitiesDataStore>();
 
             builder.Services.AddDbContext<CityInfoContext>(DbContextOptions =>
-            DbContextOptions.UseSqlite("Data Source=CityInfo.db"));
+            DbContextOptions.UseSqlite(builder.Configuration["ConnectionStrings:CityInfoDbConnectionString"]));
 
 
             var app = builder.Build();
