@@ -10,19 +10,35 @@ namespace CityInfo.API.Controllers
     public class CitiesController : ControllerBase
     {
 
-        private readonly CitiesDataStore _citiesDataStore;
+    
 
-        public CitiesController( CitiesDataStore citiesDataStore )
+        private readonly ICityInfoRepository _cityInfoRepository;
+
+        public CitiesController(ICityInfoRepository cityInfoRepository)
         {
-            _citiesDataStore = citiesDataStore;
+            _cityInfoRepository = cityInfoRepository ?? throw new ArgumentNullException(nameof(cityInfoRepository));
         }
 
         [HttpGet]
-        public ActionResult<List<CityDto>> GetCities()
+        public async Task<ActionResult<IEnumerable<CityWithoutPointsOfInteresetDto>>> GetCities()
         {
-            return Ok(_citiesDataStore.Cities);
+           var cityEntities = await _cityInfoRepository.GetCitiesAsync();
+
+           var results = new List<CityWithoutPointsOfInteresetDto>();
+
+            foreach (var cityEntity in cityEntities)
+            {
+                results.Add(new CityWithoutPointsOfInteresetDto
+                {
+                    Id = cityEntity.Id,
+                    Description = cityEntity.Description,
+                    Name = cityEntity.Name,
+                });
+            }
+            return Ok(results);
         }
 
+        /*
         [HttpGet("{id}")]
         public ActionResult<CityDto> GetCity(int id)
         {
@@ -35,7 +51,7 @@ namespace CityInfo.API.Controllers
 
             return Ok(cityToReturn);
         }
-
+        */
 
     }
 }
