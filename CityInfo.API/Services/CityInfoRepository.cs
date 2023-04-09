@@ -31,15 +31,22 @@ namespace CityInfo.API.Services
                     .Where(c => c.Id == cityId).FirstOrDefaultAsync();
         }
 
-        public async Task<PointOfInterest?> GetPointOfInterestForCityAsync(int cityId, int pointOfInterestId)
+        public async Task<PointOfInterest?> GetPointOfInterestForCityAsync(int cityId,int pointOfInterestId)
         {
-            return await _context.PointOfInterests.Where(p => p.CityId == cityId && p.Id ==
-                pointOfInterestId).FirstOrDefaultAsync();
+            return await _context.PointOfInterests.Where(p => p.CityId == cityId && p.Id == pointOfInterestId)
+               .FirstOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<PointOfInterest>> GetPointsOfInterestsForCityAsync()
+
+
+        public async Task<IEnumerable<PointOfInterest>> GetPointsOfInterestsForCityAsync(int cityId)
         {
-            return await _context.PointOfInterests.ToListAsync();
+            return await _context.PointOfInterests.Where(p => p.CityId == cityId).ToListAsync();
+        }
+
+        public async Task<bool> CityExistsAsync(int cityId)
+        {
+            return await _context.Cities.AnyAsync(c => c.Id == cityId);
         }
     }
 }
