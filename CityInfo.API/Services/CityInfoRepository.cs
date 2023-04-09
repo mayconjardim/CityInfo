@@ -37,9 +37,9 @@ namespace CityInfo.API.Services
                 pointOfInterestId).FirstOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<PointOfInterest>> GetPointOfInterestsForCityAsync(int cityId)
+        public async Task<IEnumerable<PointOfInterest>> GetPointsOfInterestsForCityAsync()
         {
-            return await _context.PointOfInterests.Where(p => p.CityId == cityId).ToListAsync();
+            return await _context.PointOfInterests.ToListAsync();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using CityInfo.API.Models;
+﻿using AutoMapper;
+using CityInfo.API.Models;
 using CityInfo.API.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
@@ -15,15 +16,20 @@ namespace CityInfo.API.Controllers
 
         private readonly IMailService _mailService;
 
-        private readonly CitiesDataStore _citiesDataStore;
+        private readonly ICityInfoRepository _cityInfoRepository;
+
+        private readonly IMapper _mapper;
+
 
         public PointsOfInterestController(ILogger<PointsOfInterestController> logger, IMailService mailService,
-            CitiesDataStore citiesDataStore
+            ICityInfoRepository cityInfoRepository, IMapper mapper
             )
         {
             _logger = logger?? throw new ArgumentNullException(nameof(logger));
             _mailService = mailService;
-            _citiesDataStore = citiesDataStore;
+            _cityInfoRepository = cityInfoRepository ?? throw new ArgumentNullException( nameof(cityInfoRepository));
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+
         }
 
 
