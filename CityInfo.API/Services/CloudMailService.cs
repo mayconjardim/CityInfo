@@ -1,6 +1,6 @@
 ﻿namespace CityInfo.API.Services
 {
-    public class LocalMailService : IMailService
+    public class CloudMailService : IMailService
     {
 
         private string _mailTo = "admin@teste.com";
@@ -8,8 +8,8 @@
 
         public void Send(string subject, string message)
         {
-            Console.WriteLine($"Email de {_mailFrom} para {_mailTo}, "
-                + $"with {nameof(LocalMailService)}.");
+            Console.WriteLine($"Email Cloud de {_mailFrom} para {_mailTo}, "
+                + $"with {nameof(CloudMailService)}.");
             Console.WriteLine($"Assunto: {subject}");
             Console.WriteLine($"Mensagem: {message}");
         }
