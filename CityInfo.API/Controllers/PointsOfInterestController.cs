@@ -128,7 +128,7 @@ namespace CityInfo.API.Controllers
         public async Task<ActionResult> PartiallyUpdatePointOfInterest(int cityId, int pointofinterestid,
             JsonPatchDocument<PointOfInterestUpdateDto> patchDocument)
         {
-           
+
             if (!await _cityInfoRepository.CityExistsAsync(cityId))
             {
                 return NotFound();
@@ -141,7 +141,7 @@ namespace CityInfo.API.Controllers
                 return NotFound();
             }
 
-           var pointOfInterestToPatch = _mapper.Map<PointOfInterestUpdateDto>(pointOfInterestEntity);
+            var pointOfInterestToPatch = _mapper.Map<PointOfInterestUpdateDto>(pointOfInterestEntity);
 
             patchDocument.ApplyTo(pointOfInterestToPatch, ModelState);
 
@@ -164,36 +164,38 @@ namespace CityInfo.API.Controllers
             return NoContent();
         }
 
-        /*
-    [HttpDelete("{pointofinterestid}")]
-    public ActionResult DeletePointOfInterest(int cityId, int pointofinterestid)
-    {
+
+        [HttpDelete("{pointofinterestid}")]
+        public async  Task<ActionResult> DeletePointOfInterest(int cityId, int pointofinterestid)
+        {
 
 
-    var city = _citiesDataStore.Cities.FirstOrDefault(c => c.Id == cityId);
+            if (!await _cityInfoRepository.CityExistsAsync(cityId))
+            {
+                return NotFound();
+            }
 
-    if (city == null)
-    {
-        return NotFound();
-    }
+            var pointOfInterestEntity = await _cityInfoRepository.GetPointOfInterestForCityAsync(cityId, pointofinterestid);
 
-    var pointOfInterestFromStore = city.PointsOfInterest.FirstOrDefault(c => c.Id == pointofinterestid);
-    if (pointOfInterestFromStore == null)
-    {
-        return NotFound();
-    }
+            if (pointOfInterestEntity == null)
+            {
+                return NotFound();
+            }
 
-    string namePoint = pointOfInterestFromStore.Name;
+            _cityInfoRepository.DeletePointOfInterests(pointOfInterestEntity);
+          
+            _mailService.Send("Ponto de interesse deletado", $"O ponto de interesse id: {pointOfInterestEntity.Id} & nome:" +
+                $" {pointOfInterestEntity.Name} foi deletado no dia de hoje " + DateTime.Now);
+           
+            await _cityInfoRepository.SaveChangesAsync();
 
-   city.PointsOfInterest.Remove(pointOfInterestFromStore);
-    _mailService.Send("Ponto de interesse deletado", $"O ponto de interesse {namePoint} foi" +
-        $" deletado no dia de hoje " + DateTime.Now);
-    return NoContent();
+            return NoContent();
 
 
-}
+        }
+        
 
-*/
+
 
     }
 }
