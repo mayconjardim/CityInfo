@@ -1,4 +1,5 @@
- using Microsoft.AspNetCore.StaticFiles;
+using CityInfo.API.Services;
+using Microsoft.AspNetCore.StaticFiles;
 using Serilog;
 
 namespace CityInfo.API
@@ -32,6 +33,9 @@ namespace CityInfo.API
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddSingleton<FileExtensionContentTypeProvider, FileExtensionContentTypeProvider>();
+
+            builder.Services.AddTransient<LocalMailService>();
+
 
             var app = builder.Build();
 
