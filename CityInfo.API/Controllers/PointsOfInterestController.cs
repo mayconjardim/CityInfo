@@ -11,7 +11,7 @@ namespace CityInfo.API.Controllers
 {
     [Route("api/cities/{cityId}/pointsofinterest")]
     [ApiController]
-    [Authorize]
+ //   [Authorize(Policy = "MustBeFromNiteroi")]
     public class PointsOfInterestController : ControllerBase
     {
 
